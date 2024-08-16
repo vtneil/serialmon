@@ -6,18 +6,20 @@
 
 import os
 
+
 def humansize(s):
     '''
     Return a string representing a human readable representation of a
     filesize
     '''
-    _abbrevs = [(1<<50,'PiB'), (1<<40,'TiB'), (1<<30,'GiB'), 
-                (1<<20,'MiB'), (1<<10,'KiB'), (1, 'B')]
+    _abbrevs = [(1 << 50, 'PiB'), (1 << 40, 'TiB'), (1 << 30, 'GiB'),
+                (1 << 20, 'MiB'), (1 << 10, 'KiB'), (1, 'B')]
     size = os.path.getsize(s)
     for factor, suffix in _abbrevs:
         if size >= factor: break
-    if suffix == 'B': return '%d %s' % (size/float(factor), suffix)
-    return '%0.2f %s' % (size/float(factor), suffix)
+    if suffix == 'B': return '%d %s' % (size / float(factor), suffix)
+    return '%0.2f %s' % (size / float(factor), suffix)
+
 
 def sortedginfo(ss):
     def ginfo(s):
@@ -25,8 +27,10 @@ def sortedginfo(ss):
         if os.path.isdir(s):
             nfo = "<DIR>"
         else:
-            try: nfo = humansize(s)
-            except: pass
+            try:
+                nfo = humansize(s)
+            except:
+                pass
         return (nfo, os.path.split(s)[-1])
 
     li = [ginfo(x) for x in ss]
@@ -34,7 +38,8 @@ def sortedginfo(ss):
     dirs.sort(key=lambda x: x[1].upper())
     fils = list(filter(lambda x: x[0] != "<DIR>", li))
     fils.sort(key=lambda x: x[1].upper())
-    return ["%12s %s" % x for x in dirs+fils]
+    return ["%12s %s" % x for x in dirs + fils]
+
 
 def tryget(s):
     """
@@ -46,25 +51,25 @@ def tryget(s):
         - Some errormessage if anything goes wrong
     - `success` will be False if anything fails (file/dir not found/not readable)
     """
-    
+
     if not os.path.exists(s):
-        return (None, s+ " does not exist.", False)
-    
+        return (None, s + " does not exist.", False)
+
     if os.path.isfile(s):
         try:
             f = open(s, "rb")
             t = os.path.getsize(s)
-            return(f, "Opened file %s, %d bytes" % (s, t), True)
+            return (f, "Opened file %s, %d bytes" % (s, t), True)
         except e:
             return (None, str(e), False)
-    
+
     if os.path.isdir(s):
         try:
-            li = sortedginfo(os.path.join(s,x) for x in os.listdir(s))
+            li = sortedginfo(os.path.join(s, x) for x in os.listdir(s))
         except Exception as e:
             return (None, str(e), False)
         res = "\n\n----- DIRECTORY %s -----\n\n" % s
         res += "\n".join(li)
         return (None, res, True)
-    
-    return(None, s+" is not a regular file (or dir)", False)
+
+    return (None, s + " is not a regular file (or dir)", False)

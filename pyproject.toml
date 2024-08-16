@@ -1,0 +1,20 @@
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = 'serialmon'
+version = '1.0.0'
+authors = [
+    { name = "inkeso" },
+    { name = "vtneil" },
+]
+dependencies = [
+    "pyserial"
+]
+description = "Serial Monitor Tools"
+keywords = ["serial"]
+readme = { file = "README.md", content-type = "text/markdown" }
+
+[project.scripts]
+serialmon = "serialmon:launch"

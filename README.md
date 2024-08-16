@@ -1,4 +1,6 @@
-# PySer
+# Serial Monitor
+
+(This project is continued from [inkeso/pyser](https://github.com/inkeso/pyser))
 
 This is a serial monitor/console intended as a replacement for Arduino-IDE serial monitor.
 
@@ -9,10 +11,25 @@ I wanted something with a featureset like cutecom, but in a terminal. And here w
 Terminal size must be at least 80x25, for best results use 160 columns or more.
 It supports 256 colors, if terminal is capable. Colors can be customized in `styles.py`.
 
+## Installation
+```shell
+pip install .
+```
+
+## Using the command
+Either
+```shell
+serialmon
+```
+or
+```shell
+python -m serialmon
+```
+
 ## Commandline parameters
 ```
-$ ./pyser.py --help
-usage: pyser.py [-h] [-r BAUDRATE] [-p PARAM] [-t TIMEOUT] [-x] [-c] [-d] [-n] [-da DUMPALL] [-dr DUMPREC] [-ds DUMPSND] [-s PADSIZE] [-m MAXFILEHEX] [port]
+$ serialmon --help
+usage: serialmon [-h] [-r BAUDRATE] [-p PARAM] [-t TIMEOUT] [-x] [-c] [-d] [-n] [-da DUMPALL] [-dr DUMPREC] [-ds DUMPSND] [-s PADSIZE] [-m MAXFILEHEX] [port]
 
 positional arguments:
   port                  Device name or None
